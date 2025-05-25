@@ -1,0 +1,157 @@
+body {
+  background: url("/static/wallpaper.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  text-align: center;
+}
+
+.header {
+  background-color: rgba(255,255,255,0.9);
+  padding: 20px;
+}
+
+.logo {
+  width: 180px;
+  max-width: 80%;
+  height: auto;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #333;
+  margin-top: 10px;
+}
+
+.chatbot {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(255,255,255,0.85);
+  display: inline-block;
+  border-radius: 20px;
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+.hamster-img {
+  width: 250px;
+  max-width: 80%;
+  height: auto;
+  transition: 0.3s ease;
+}
+
+.input-box {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 280px;
+  max-width: 90%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffb347;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.msg {
+  font-size: 20px;
+  margin: 20px;
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+/* 반응형 모바일 */
+@media screen and (max-width: 768px) {
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .msg {
+    font-size: 16px;
+  }
+
+  input[type="text"] {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 8px 16px;
+  }
+
+  .hamster-img {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hamster-img {
+    width: 180px;
+  }
+
+  .msg {
+    font-size: 15px;
+  }
+}
+.extra-activity {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 15px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.extra-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.chatgpt-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  gap: 12px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.chatgpt-banner:hover {
+  background-color: #222;
+}
+
+.chatgpt-logo {
+  height: 28px;
+  width: auto;
+}
+
+.extra-description {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-line;
+}

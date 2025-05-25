@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI maker - 햄스터 챗봇</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .bulb {
+      position: absolute;
+      width: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -40px;
+      display: none;
+    }
+
+    .bulb.blinking {
+      animation: bulb-blink 0.6s ease-in-out 3;
+    }
+
+    .hamster-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    @keyframes bulb-blink {
+      0%   { opacity: 0.2; transform: scale(1); }
+      50%  { opacity: 1;   transform: scale(1.1); }
+      100% { opacity: 0.2; transform: scale(1); }
+    }
+
+    .extra-activity {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 15px;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+
+    .extra-title {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .chatgpt-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000;
+      color: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      gap: 12px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .chatgpt-banner:hover {
+      background-color: #222;
+    }
+
+    .chatgpt-logo {
+      height: 28px;
+      width: auto;
+    }
+
+    .extra-description {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="{{ url_for('static', filename='logo.gif') }}" alt="로고" class="logo">
+    <h1>AI maker</h1>
+    <p class="subtitle">내가 직접 만든 챗봇을 사용해보자!<br>햄스터가 정답을 맞추는지 지켜봐요!</p>
+  </div>
+
+  <div class="chatbot">
+    <div class="hamster-container">
+      <img id="bulb" src="{{ url_for('static', filename='lightbulb.png') }}" class="bulb">
+      <img id="hamster" src="{{ url_for('static', filename='default.png') }}" class="hamster-img">
+    </div>
+    <p id="messageBox" class="msg"> </p>
+
+    <div class="input-box" id="inputArea" style="display:none;">
+      <input type="text" id="userInput" placeholder="문장을 입력해보세요!">
+      <button onclick="sendMessage()">확인</button>
+    </div>
+  </div>
+
+  <!-- ✅ 추가 짝활동 섹션 -->
+  <div class="extra-activity">
+    <h2 class="extra-title">추가 짝활동</h2>
+
+    <a href="https://chat.openai.com/" target="_blank" class="chatgpt-banner">
+      <img src="{{ url_for('static', filename='chatgpt_logo.png') }}" class="chatgpt-logo" alt="ChatGPT 로고">
+      <span>클릭하면 Chat-Gpt 사이트에 연결돼요.</span>
+    </a>
+
+    <p class="extra-description">
+      Chat-Gpt에서 챗봇을 실험해봐요.<br>
+      <strong>생각해보기:</strong> 내가 만든 챗봇과 답이 차이가 나는 이유는 무엇일까요?<br>
+      Chat-Gpt가 이런 답변을 하기까지 어떤 과정이 있었을까요?
+    </p>
+  </div>
+
+  <script>
+    const hamster = document.getElementById("hamster");
+    const msgBox = document.getElementById("messageBox");
+    const inputArea = document.getElementById("inputArea");
+    const bulb = document.getElementById("bulb");
+
+    const messages = [
+      "안녕!",
+      "내가 지금부터 너의 마음을 읽어볼게!",
+      "네가 아까 알려준 문장들로 내가 방금 공부를 했어!",
+      "문장을 쓰면,\n네가 햄버거가 먹고싶은지,\n먹고싶지 않은지 맞춰볼게~"
+    ];
+
+    function blink(times = 2, callback) {
+      let count = 0;
+      const interval = setInterval(() => {
+        hamster.src = "{{ url_for('static', filename='closed.png') }}";
+        setTimeout(() => {
+          hamster.src = "{{ url_for('static', filename='default.png') }}";
+        }, 200);
+        count++;
+        if (count >= times) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 600);
+    }
+
+    function typeMessage(text, callback) {
+      msgBox.innerText = "";
+      let chars = [...text];
+      let i = 0;
+      const interval = setInterval(() => {
+        msgBox.innerText += chars[i];
+        i++;
+        if (i >= chars.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 60);
+    }
+
+    function showMessage(index = 0) {
+      if (index >= messages.length) {
+        inputArea.style.display = "block";
+        return;
+      }
+      blink(1, () => {
+        typeMessage(messages[index], () => {
+          setTimeout(() => showMessage(index + 1), 1000);
+        });
+      });
+    }
+
+    function sendMessage() {
+      const message = document.getElementById("userInput").value;
+      msgBox.innerText = "생각 중...";
+      hamster.src = "{{ url_for('static', filename='closed.png') }}";
+      bulb.style.display = "none";
+
+      fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      })
+      .then(response => response.json())
+      .then(data => {
+        setTimeout(() => {
+          if (data.confidence < 0.6) {
+            hamster.src = "{{ url_for('static', filename='question.png') }}";
+            typeMessage("잘 이해가 안돼...\n다른 문장을 다시 써줄래?");
+          } else {
+            bulb.style.display = "block";
+            bulb.classList.add("blinking");
+            setTimeout(() => {
+              bulb.style.display = "none";
+              bulb.classList.remove("blinking");
+            }, 1800);
+
+            if (data.result === 1) {
+              hamster.src = "{{ url_for('static', filename='smile.png') }}";
+              typeMessage("알았다!\n너 지금 햄버거가 먹고싶구나!");
+            } else {
+              hamster.src = "{{ url_for('static', filename='sad.png') }}";
+              typeMessage("알았다!\n너 지금 햄버거가 먹고싶지 않구나 😢");
+            }
+          }
+        }, 500);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("userInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
+      showMessage();
+    });
+  </script>
+</body>
+</html>
