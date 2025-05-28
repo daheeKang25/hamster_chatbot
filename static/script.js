@@ -26,11 +26,17 @@ function blink(times = 2, callback) {
 }
 
 function typeMessage(text, callback) {
-  msgBox.innerText = "";
+  msgBox.innerHTML = "";
   let chars = [...text];
   let i = 0;
   const interval = setInterval(() => {
-    msgBox.innerText += chars[i];
+    if (chars[i] === "\n") {
+  msgBox.innerHTML += "<br>";
+} else if (chars[i] === " ") {
+  msgBox.innerHTML += "&nbsp;";
+} else {
+  msgBox.innerHTML += chars[i];
+}
     i++;
     if (i >= chars.length) {
       clearInterval(interval);
@@ -65,7 +71,7 @@ function sendMessage() {
   .then(response => response.json())
   .then(data => {
     setTimeout(() => {
-      if (data.confidence < 0.6) {
+      if (data.confidence < 0.4) {
         hamster.src = "/static/question.png";
         typeMessage("잘 이해가 안돼...\n다른 문장을 다시 써줄래?");
       } else {
