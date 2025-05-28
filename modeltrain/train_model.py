@@ -3,6 +3,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 import pickle
 import os
+import re
+
+#전처리 함수 추가
+def preprocess(text) :
+    text = text.lower()
+    text = re.sub(r'[^ㄱ-ㅎ가-힣a-zA-Z0-9 ]', '', text)
+    return text.strip()
 
 # 상위 경로 (프로젝트 루트)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

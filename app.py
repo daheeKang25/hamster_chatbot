@@ -2,7 +2,15 @@ from flask import Flask, render_template, request, jsonify
 import pickle
 import numpy as np
 
+import re #전처리 모듈 추가
+
 app = Flask(__name__)
+
+#전처리 함수 정의 부분
+def preprocess(text) :
+    text = text.lower()
+    text = re.sub(r'[^ㄱ-ㅎ가-힣a-zA-Z0-9]','',text)
+    return text.strip()
 
 # 모델 로드
 with open("ham_model.pkl", "rb") as f:
@@ -17,6 +25,7 @@ def index():
 @app.route("/predict", methods=["POST"])
 def predict():
     user_input = request.json.get("message", "")
+    user_input = preprocess(user_input) #입력값 전처리 부분 추가
     X = vectorizer.transform([user_input])
     prob = model.predict_proba(X)[0]
     label = int(np.argmax(prob))

@@ -155,3 +155,34 @@ button {
   line-height: 1.6;
   white-space: pre-line;
 }
+.bulb {
+  position: absolute;
+  width: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -40px;
+  display: none;
+}
+
+.bulb.blinking {
+  animation: bulb-blink 0.6s ease-in-out 3;
+}
+
+@keyframes bulb-blink {
+  0%   { opacity: 0.2; transform: scale(1); }
+  50%  { opacity: 1;   transform: scale(1.1); }
+  100% { opacity: 0.2; transform: scale(1); }
+}
+
+/* 시각장애인을 위한 숨김 텍스트용 */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
