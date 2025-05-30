@@ -3,7 +3,6 @@ import pickle
 import numpy as np
 import re
 import pandas as pd
-from konlpy.tag import Okt
 
 app = Flask(__name__)
 
