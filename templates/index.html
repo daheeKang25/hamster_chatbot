@@ -10,7 +10,15 @@
   <div class="header">
     <img src="{{ url_for('static', filename='logo.gif') }}" alt="로고" class="logo">
     <h1>AI maker</h1>
-    <p class="subtitle">우리가 입력한 데이터로 만든 챗봇을 사용해보자!<br>햄스터가 정답을 맞추는지 지켜봐요!<br> [햄스터와 대화할 때에는 오타가 나지 않게 조심해주세요]</p>
+    <p class="subtitle">
+  우리가 입력한 <strong>데이터</strong>로 만든 <strong>챗봇</strong>을 사용해보자!<br>
+  햄스터가 정답을 맞추는지 지켜봐요!<br>
+  <span style="color: dodgerblue;">
+    [햄스터에게는 <strong>햄버거가 먹고싶은지</strong> 또는 <strong>먹고싶지 않은지</strong>에 대한 문장을 써주세요!<br>
+    <strong>오타</strong>가 나지 않게 조심하는 것도 중요해요!]
+  </span>
+</p>
+
   </div>
 
   <div class="chatbot">
@@ -42,6 +50,19 @@
       Chat-Gpt가 이런 답변을 하기까지 어떤 과정이 있었을까요?
     </p>
   </div>
+
+  <div style="text-align: center; margin-top: 40px;">
+  <a href="/view-data" class="back-btn" style="padding: 12px 20px; font-size: 16px; background-color: #ffa94d; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+    📂 학습에 사용한 데이터 보러가기
+  </a>
+
+  <div style="background-color: rgba(255, 255, 255, 0.85); margin-top: 15px; padding: 15px 20px; border-radius: 10px; display: inline-block; max-width: 90%; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+    <p style="font-size: 14px; color: #333; margin: 0;">
+      이 챗봇을 만드는 데 사용한 <strong>데이터</strong>예요.<br>
+      햄스터가 더 똑똑해지려면 어떤 문장을 몇 개 더 추가해야 할지 생각해보아요!
+    </p>
+  </div>
+</div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

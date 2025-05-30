@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>학습 데이터 보기</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    p.description {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      font-size: 18px;
+      color: #222;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    li {
+      background: #f0f0f0;
+      margin: 6px 0;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin: 30px auto 0;
+      text-align: center;
+      background: #ffa94d;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .btn-container {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>학습에 사용한 데이터</h1>
+    <p class="description">
+      이 챗봇을 만들 때 사용한 문장들이에요!<br>
+      햄스터가 더 똑똑해지려면 어떤 문장을 더 넣으면 좋을지 함께 생각해 보아요.
+    </p>
+
+    <div class="flex-container">
+      <div class="column">
+        <h2>⭕ 햄버거가 먹고 싶은 문장들</h2>
+        <ul>
+          {% for row in positive %}
+            <li>{{ row }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="column">
+        <h2>❌ 햄버거가 먹고 싶지 않은 문장들</h2>
+        <ul>
+          {% for row in negative %}
+            <li>{{ row }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <a href="/" class="back-btn">🏠 <strong>챗봇</strong>으로 돌아가기</a>
+    </div>
+  </div>
+</body>
+</html>
