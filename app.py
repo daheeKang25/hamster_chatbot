@@ -7,13 +7,11 @@ from konlpy.tag import Okt
 
 app = Flask(__name__)
 
-#전처리 함수 정의 부분
-okt = Okt()
-def preprocess(text) :
+#전처리 함수 정의(render에서 okt를 못읽어서 호환성 위해 okt부분 app.py에서만 삭제)
+def preprocess(text):
     text = str(text).lower()
-    text = re.sub(r'[^ㄱ-ㅎ가-힣a-zA-Z0-9]','',text)
-    tokens = okt.morphs(text)
-    return ' '.join(tokens)
+    text = re.sub(r'[^ㄱ-ㅎ가-힣a-zA-Z0-9]', ' ', text)
+    return text.strip()
 
 # 모델 로드
 with open("ham_model.pkl", "rb") as f:
