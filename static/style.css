@@ -165,6 +165,12 @@ button {
   line-height: 1.6;
   white-space: pre-line;
 }
+
+.hamster-container {
+  position : relative;
+  display : inline-block;
+ }
+
 .bulb {
   position: absolute;
   width: 60px;
@@ -172,6 +178,7 @@ button {
   transform: translateX(-50%);
   top: -40px;
   display: none;
+  z-index: 5;
 }
 
 .bulb.blinking {
