@@ -5,9 +5,9 @@ const bulb = document.getElementById("bulb");
 
 const messages = [
   "안녕!",
-  "내가 지금부터 너의 마음을 읽어볼게!",
+  "내가 지금부터 너의 마음을 읽어볼게! (و ˃̵ᴗ˂̵)و ",
   "네가 아까 알려준 문장들로 내가 방금 공부를 했어!",
-  "문장을 쓰면,\n네가 햄버거가 먹고 싶은지,\n먹고 싶지 않은지 맞혀볼게~"
+  "문장을 쓰면,\n네가 햄버거가 먹고 싶은지,\n먹고 싶지 않은지 맞혀볼게~\nᐠ( ᐢ ᵕ ᐢ )ᐟ"
 ];
 
 function blink(times = 2, callback) {
@@ -118,10 +118,10 @@ function sendMessage() {
 
         if (data.result === 1) {
           hamster.src = "/static/smile.png";
-          typeMessage("알았다!\n너 지금 햄버거가 먹고 싶구나!");
+          typeMessage("알았다!\n너 지금 햄버거가 먹고 싶구나! «٩(*´∀`*)۶» ");
         } else {
           hamster.src = "/static/sad.png";
-          typeMessage("알았어...\n너 지금 햄버거가 먹고 싶지 않구나 😢");
+          typeMessage("알았어...\n너 지금 햄버거가 먹고 싶지 않구나 (T⌓T) ");
         }
       }
     }, 500);

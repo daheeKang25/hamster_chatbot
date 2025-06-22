@@ -6,7 +6,7 @@ import re
 import pandas as pd
 
 app = Flask(__name__)
-
+#경로로 참고용 : C:\Users\mindc\PycharmProjects\PythonProject1
 #전처리 함수 정의(render에서 okt를 못읽어서 호환성 위해 okt부분 app.py에서만 삭제)
 def preprocess(text):
     text = str(text).lower()
